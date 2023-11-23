@@ -4,7 +4,7 @@ import { PaperProvider} from 'react-native-paper';
 import { FeedList } from './modules/FeedList';
 
 export default function App() {
-
+  
   return (
     <PaperProvider>
       <View style={styles.container}>
