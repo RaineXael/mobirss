@@ -1,3 +1,4 @@
+//Example file to test out the RSS Parser lib
 const fs = require('fs');
 const link = "https://www.sdamned.com/comic/rss";
 const fileURL = "./RSSCONTENT.json";
