@@ -14,5 +14,5 @@ let parser = new Parser();
     feed.items.forEach(item => {
     //  console.log(item)
     });
-    fs.writeFileSync(fileURL, JSON.stringify(feed.items))
+    fs.writeFileSync(fileURL, JSON.stringify(feed))
   })();

@@ -1,11 +1,12 @@
-import { Text, Card, Button,List, FAB, Appbar} from "react-native-paper";
+import { Text, Card, Button,List, FAB, Appbar, Dialog, Portal, TextInput} from "react-native-paper";
 import { View, StyleSheet, ScrollView, Linking} from "react-native";
+import { FeedInputDialog } from "./FeedAddDialog";
 //Linking.openURL("https://www.sdamned.com/comic/1111");
 
 import { useEffect, useState } from "react";
 import { storeData, getData } from "./DataManager";
 export function FeedList(){
-
+    const [visible, setVisible] = useState(false);
     const [a, seta] = useState();
     useEffect(()=> {
         getData('saved-feeds').then(data => {
@@ -19,23 +20,24 @@ export function FeedList(){
     },[])
 
     return(
-        
-        <View style={styles.view}>
-            
-            <Button onPress={() => {storeData('saved-feeds', {
-                title:'Slightly Damned',
-                url:'https://www.sdamned.com/comic/rss'
-            })}}>Store Data</Button>
-        
-            <Text>{a}</Text>
+        <View style={styles.view}> 
+           
+            <FeedInputDialog visible={visible} setVisible={setVisible}/>
             <Titlebar></Titlebar>
             <ScrollView>
             <FeedCard></FeedCard>
             </ScrollView>
-            <FAB icon="plus" style={styles.fab} onPress={()=>alert("lol")}>Add New Feed</FAB>
+            <Button onPress={() => {storeData('saved-feeds', [{
+                title:'Slightly Damned',
+                url:'https://www.sdamned.com/comic/rss'
+            }])}}>Store Data</Button>
+            <FAB icon="plus" style={styles.fab} onPress={()=>setVisible(true)}>Add New Feed</FAB>
         </View>
     );
 }
+
+
+
 
 function FeedCard(){
     return(
