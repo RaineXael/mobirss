@@ -58,41 +58,9 @@ export function FeedList(){
 function FeedCard({feed}){
    
     return(
-        <>
-        
         <Card onPress={() => alert(`Should open the feed for ${feed.title}`)}>
         <Card.Title title={feed.title} subtitle={feed.description}/>
         </Card>
-        
-        <Card onPress={() => alert(`Should open the feed for ${feed.title}`)}>
-        <Card.Title title={feed.title} subtitle={feed.description}/>
-        </Card>
-         <Card onPress={() => alert(`Should open the feed for ${feed.title}`)}>
-         <Card.Title title={feed.title} subtitle={feed.description}/>
-         </Card>
-          <Card onPress={() => alert(`Should open the feed for ${feed.title}`)}>
-          <Card.Title title={feed.title} subtitle={feed.description}/>
-          </Card>
-           <Card onPress={() => alert(`Should open the feed for ${feed.title}`)}>
-           <Card.Title title={feed.title} subtitle={feed.description}/>
-           </Card>
-            <Card onPress={() => alert(`Should open the feed for ${feed.title}`)}>
-            <Card.Title title={feed.title} subtitle={feed.description}/>
-            </Card>
-             <Card onPress={() => alert(`Should open the feed for ${feed.title}`)}>
-             <Card.Title title={feed.title} subtitle={feed.description}/>
-             </Card>
-              <Card onPress={() => alert(`Should open the feed for ${feed.title}`)}>
-              <Card.Title title={feed.title} subtitle={feed.description}/>
-              </Card>
-               <Card onPress={() => alert(`Should open the feed for ${feed.title}`)}>
-               <Card.Title title={feed.title} subtitle={feed.description}/>
-               </Card>
-                <Card onPress={() => alert(`Should open the feed for ${feed.title}`)}>
-                <Card.Title title={feed.title} subtitle={feed.description}/>
-                </Card>
-                
-                </>
     );
 }
 
