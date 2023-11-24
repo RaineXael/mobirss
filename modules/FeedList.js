@@ -18,7 +18,7 @@ const exampleData ={
 
 import { useEffect, useState } from "react";
 import { storeData, getData } from "./DataManager";
-export function FeedList(){
+export function FeedList({setter}){
     const [visible, setVisible] = useState(false);
     const [feeds, setFeeds] = useState([]);
     useEffect(()=> {
@@ -34,7 +34,7 @@ export function FeedList(){
 
 
     const feedJSX = feeds.map(elem => {
-        return(<FeedCard feed={elem} key={elem.link}></FeedCard>)
+        return(<FeedCard feed={elem} key={elem.link} setter={setter}></FeedCard>)
     });
     console.log(feedJSX)
 
@@ -55,10 +55,10 @@ export function FeedList(){
 
 //<Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
 
-function FeedCard({feed}){
+function FeedCard({feed, setter}){
    
     return(
-        <Card onPress={() => alert(`Should open the feed for ${feed.title}`)}>
+        <Card onPress={() => setter(feed)}>
         <Card.Title title={feed.title} subtitle={feed.description}/>
         </Card>
     );
