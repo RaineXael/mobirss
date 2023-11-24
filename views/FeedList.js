@@ -1,7 +1,7 @@
 import { Text, Card, Button,List, FAB, Appbar, Dialog, Portal, TextInput} from "react-native-paper";
 import { View, StyleSheet, ScrollView, Linking} from "react-native";
 import { FeedInputDialog } from "./FeedAddDialog";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { storeData, getData } from "../modules/DataManager";
 //Linking.openURL("https://www.sdamned.com/comic/1111");
 
@@ -19,22 +19,12 @@ const exampleData ={
 
 
 
-export function FeedList({setter}){
+export function FeedList({feedList, setter}){
     const [visible, setVisible] = useState(false);
-    const [feeds, setFeeds] = useState([]);
-    useEffect(()=> {
-        getData('saved-feeds').then(data => {
-            console.log(setFeeds);
-            if(data !== undefined){
-                setFeeds(JSON.parse(data))
-            }
-        
-        })
-        
-    },[])
+    
+ 
 
-
-    const feedJSX = feeds.map(elem => {
+    const feedJSX = feedList.map(elem => {
         return(<FeedCard feed={elem} key={elem.link} setter={setter}></FeedCard>)
     });
     console.log(feedJSX)
@@ -42,7 +32,7 @@ export function FeedList({setter}){
     return(
         <View style={styles.view}> 
            
-            <FeedInputDialog visible={visible} setVisible={setVisible}/>
+            <FeedInputDialog feedList={feedList} visible={visible} setVisible={setVisible}/>
             <Titlebar></Titlebar>
             <ScrollView>
             {feedJSX}
@@ -75,9 +65,6 @@ function Titlebar(){
   }
 
 
-function FeedArticleList(){
-    //all articles list for a feed
-}
 
 const styles = StyleSheet.create({
     view:{

@@ -5,7 +5,7 @@ function Article(){
 
 }
 
-function Titlebar({title}){
+function Titlebar({title, setter}){
   return(
     <Appbar.Header>
     <Appbar.BackAction onPress={() => {setter(null)}} />

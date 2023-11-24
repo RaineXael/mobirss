@@ -14,7 +14,7 @@ const exampleData = {
 
 
 
-export function FeedInputDialog({ visible, setVisible }) {
+export function FeedInputDialog({ feedList, visible, setVisible }) {
 
   const [text, setText] = useState('');
 
@@ -26,6 +26,7 @@ export function FeedInputDialog({ visible, setVisible }) {
     if(foundFeed !== null){
       console.log(foundFeed.rss.channel);
       //add feed to list & save to cache
+      feedList.push(foundFeed.rss.channel);
       hideDialog();
     }
     else
