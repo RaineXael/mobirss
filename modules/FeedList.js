@@ -3,21 +3,40 @@ import { View, StyleSheet, ScrollView, Linking} from "react-native";
 import { FeedInputDialog } from "./FeedAddDialog";
 //Linking.openURL("https://www.sdamned.com/comic/1111");
 
+
+const exampleData ={
+    "feedUrl": "https://www.sdamned.com/comic/rss",
+    "paginationLinks": {
+        "self": "https://www.sdamned.com/comic/rss"
+    },
+    "title": "Slightly Damned",
+    "description": "Latest Slightly Damned comics and news",
+    "link": "https://www.sdamned.com/",
+    "language": "en-us"
+}
+
+
 import { useEffect, useState } from "react";
 import { storeData, getData } from "./DataManager";
 export function FeedList(){
     const [visible, setVisible] = useState(false);
-    const [a, seta] = useState();
+    const [feeds, setFeeds] = useState([]);
     useEffect(()=> {
         getData('saved-feeds').then(data => {
-            console.log(data);
+            console.log(setFeeds);
             if(data !== undefined){
-                seta(data)
+                setFeeds(JSON.parse(data))
             }
         
         })
         
     },[])
+
+
+    const feedJSX = feeds.map(elem => {
+        return(<FeedCard feed={elem} key={elem.link}></FeedCard>)
+    });
+    console.log(feedJSX)
 
     return(
         <View style={styles.view}> 
@@ -25,25 +44,55 @@ export function FeedList(){
             <FeedInputDialog visible={visible} setVisible={setVisible}/>
             <Titlebar></Titlebar>
             <ScrollView>
-            <FeedCard></FeedCard>
+            {feedJSX}
             </ScrollView>
-            <Button onPress={() => {storeData('saved-feeds', [{
-                title:'Slightly Damned',
-                url:'https://www.sdamned.com/comic/rss'
-            }])}}>Store Data</Button>
+            
             <FAB icon="plus" style={styles.fab} onPress={()=>setVisible(true)}>Add New Feed</FAB>
         </View>
     );
 }
 
 
+//<Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
 
-
-function FeedCard(){
+function FeedCard({feed}){
+   
     return(
-        <View>
-        <List.Item title="First Item" left={props => <List.Icon {...props} icon="folder" />}/>
-        </View>
+        <>
+        
+        <Card onPress={() => alert(`Should open the feed for ${feed.title}`)}>
+        <Card.Title title={feed.title} subtitle={feed.description}/>
+        </Card>
+        
+        <Card onPress={() => alert(`Should open the feed for ${feed.title}`)}>
+        <Card.Title title={feed.title} subtitle={feed.description}/>
+        </Card>
+         <Card onPress={() => alert(`Should open the feed for ${feed.title}`)}>
+         <Card.Title title={feed.title} subtitle={feed.description}/>
+         </Card>
+          <Card onPress={() => alert(`Should open the feed for ${feed.title}`)}>
+          <Card.Title title={feed.title} subtitle={feed.description}/>
+          </Card>
+           <Card onPress={() => alert(`Should open the feed for ${feed.title}`)}>
+           <Card.Title title={feed.title} subtitle={feed.description}/>
+           </Card>
+            <Card onPress={() => alert(`Should open the feed for ${feed.title}`)}>
+            <Card.Title title={feed.title} subtitle={feed.description}/>
+            </Card>
+             <Card onPress={() => alert(`Should open the feed for ${feed.title}`)}>
+             <Card.Title title={feed.title} subtitle={feed.description}/>
+             </Card>
+              <Card onPress={() => alert(`Should open the feed for ${feed.title}`)}>
+              <Card.Title title={feed.title} subtitle={feed.description}/>
+              </Card>
+               <Card onPress={() => alert(`Should open the feed for ${feed.title}`)}>
+               <Card.Title title={feed.title} subtitle={feed.description}/>
+               </Card>
+                <Card onPress={() => alert(`Should open the feed for ${feed.title}`)}>
+                <Card.Title title={feed.title} subtitle={feed.description}/>
+                </Card>
+                
+                </>
     );
 }
 
