@@ -16,6 +16,7 @@
     "react": "18.2.0",
     "react-native": "0.72.6",
     "react-native-paper": "^5.11.2",
+    "react-native-webview": "^13.6.3",
     "rss-parser": "^3.13.0"
   },
   "devDependencies": {
