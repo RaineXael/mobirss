@@ -1,6 +1,8 @@
 import { Text, Card, Button,List, FAB, Appbar, Dialog, Portal, TextInput} from "react-native-paper";
 import { View, StyleSheet, ScrollView, Linking} from "react-native";
 import { FeedInputDialog } from "./FeedAddDialog";
+import { useEffect, useState } from "react";
+import { storeData, getData } from "../modules/DataManager";
 //Linking.openURL("https://www.sdamned.com/comic/1111");
 
 
@@ -16,8 +18,7 @@ const exampleData ={
 }
 
 
-import { useEffect, useState } from "react";
-import { storeData, getData } from "./DataManager";
+
 export function FeedList({setter}){
     const [visible, setVisible] = useState(false);
     const [feeds, setFeeds] = useState([]);

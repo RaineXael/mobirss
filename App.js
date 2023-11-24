@@ -1,9 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import { PaperProvider} from 'react-native-paper';
-import { FeedList } from './modules/FeedList';
+import { FeedList } from './views/FeedList';
 import {useState} from 'react'
-import {ArticleList} from './modules/FeedView'
+import {ArticleList} from './views/FeedView'
 export default function App() {
   const [currentFeed, setCurrentFeed] = useState(null);
   return (
