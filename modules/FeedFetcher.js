@@ -1,5 +1,5 @@
-let Parser = require('rss-parser');
-let parser = new Parser();
+const { XMLParser} = require("fast-xml-parser");
+const parser = new XMLParser();
 
 /**
  * Fetches and returns an object representation of an RSS Feed 
@@ -7,11 +7,16 @@ let parser = new Parser();
  * @returns An object representation of the feed, an empty object if not found
  */
 export async function fetchFeed(link){
+ 
   try{
-    let feed = await parser.parseURL(link);
-    return(feed);
+    const xmlResp = await fetch(link);
+    const xmlString = await xmlResp.text();
+    //validate rss
+    return parser.parse(xmlString);
   }
-  catch{
-    return {};
+  catch(e){
+    console.error(e)
+    return null;
   }
+  
 };
