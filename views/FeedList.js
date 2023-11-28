@@ -4,41 +4,33 @@ import { FeedInputDialog } from "./FeedAddDialog";
 import { useState } from "react";
 import { storeData, getData } from "../modules/DataManager";
 //Linking.openURL("https://www.sdamned.com/comic/1111");
-
-
-const exampleData ={
-    "feedUrl": "https://www.sdamned.com/comic/rss",
-    "paginationLinks": {
-        "self": "https://www.sdamned.com/comic/rss"
-    },
-    "title": "Slightly Damned",
-    "description": "Latest Slightly Damned comics and news",
-    "link": "https://www.sdamned.com/",
-    "language": "en-us"
-}
-
-
-
-export function FeedList({feedList, setter}){
+//saved-feeds
+export function FeedList({feedList, setter, saveFeedFN}){
     const [visible, setVisible] = useState(false);
-    
- 
 
     const feedJSX = feedList.map(elem => {
-        return(<FeedCard feed={elem} key={elem.link} setter={setter}></FeedCard>)
+        return(<FeedCard feed={elem} key={elem.link} setter={setter} style={styles.card}></FeedCard>)
     });
     console.log(feedJSX)
+
+    //temp
+    const resetData = () => {
+        storeData('saved-feeds',[]);
+    };
+
 
     return(
         <View style={styles.view}> 
            
-            <FeedInputDialog feedList={feedList} visible={visible} setVisible={setVisible}/>
+            <FeedInputDialog saveFeedFN={saveFeedFN} feedList={feedList} visible={visible} setVisible={setVisible}/>
             <Titlebar></Titlebar>
             <ScrollView>
             {feedJSX}
+            <Button onPress={resetData}>RESET EVERYTHING</Button>
+            <Text style={styles.credit}>App by RaineXael</Text>
             </ScrollView>
             
-            <FAB icon="plus" style={styles.fab} onPress={()=>setVisible(true)}>Add New Feed</FAB>
+            <FAB icon="plus" size='large' style={styles.fab} onPress={()=>setVisible(true)}>Add New Feed</FAB>
         </View>
     );
 }
@@ -60,6 +52,7 @@ function Titlebar(){
     return(
       <Appbar.Header>
       <Appbar.Content title="MobiRSS" />
+      <Appbar.Action icon="cog" onPress={() => {}} />
     </Appbar.Header>
     );
   }
@@ -70,6 +63,10 @@ const styles = StyleSheet.create({
     view:{
         flex:1,
     },
+    credit:{
+        textAlign:'center',
+        margin:16
+    },
     fab: {
       position: 'absolute',
       margin: 16,
@@ -77,7 +74,8 @@ const styles = StyleSheet.create({
       bottom: 0,
     },
     card:{
-        margin:16
-    }
+        margin:32
+    },
+   
   })
   

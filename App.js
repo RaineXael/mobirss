@@ -4,33 +4,48 @@ import { PaperProvider} from 'react-native-paper';
 import { FeedList } from './views/FeedList';
 import {useState, useEffect} from 'react'
 import {ArticleList} from './views/FeedView'
+import { getData, storeData } from './modules/DataManager';
+
+
+
+
 export default function App() {
   const [currentFeed, setCurrentFeed] = useState(null);
   const [feedList, setFeedList] = useState([]);
+  const [feedsLoaded, setLoaded] = useState(false);
+
+  const saveFeeds = async () => {
+    await storeData('saved-feeds',feedList)
+  }
 
   useEffect(() => {
     //load feedlist from disk on boot
-    /*
     getData('saved-feeds').then(data => {
-      console.log(setFeeds);
+      console.log(feedList);
       if(data !== undefined){
-          setFeeds(JSON.parse(data))
+        setFeedList(JSON.parse(data))
       }
-  
-   })*/
-  },[])
+      setLoaded(true);
+   }).catch(err => {
+    console.error(err);
+    setLoaded(true);
+   }
 
-  useEffect(()=>{
-    //save feedlist on change
-    console.log('Feed List modified')
-  },[feedList])
-  
+   )},[])
+
+  useEffect
 
   return (
     <PaperProvider>
       <View style={styles.container}>
-       {currentFeed === null && (<FeedList feedList={feedList} setter={setCurrentFeed}/>)}
-       {currentFeed !== null && <ArticleList feed={currentFeed} setter={setCurrentFeed}/>}
+        {
+         feedsLoaded === true && 
+        <>
+         {currentFeed === null && (<FeedList feedList={feedList} setter={setCurrentFeed} saveFeedFN={saveFeeds}/>) }
+         {currentFeed !== null && (<ArticleList feed={currentFeed} setter={setCurrentFeed}/>)}  
+        </>
+        }
+
         <StatusBar style="auto" />
       </View>
     </PaperProvider>
