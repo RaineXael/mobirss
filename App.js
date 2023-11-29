@@ -5,7 +5,7 @@ import { FeedList } from './views/FeedList';
 import {useState, useEffect} from 'react'
 import {ArticleList} from './views/FeedView'
 import { getData, storeData } from './modules/DataManager';
-
+import { SettingsMenu } from './views/SettingsMenu';
 
 
 
@@ -13,7 +13,7 @@ export default function App() {
   const [currentFeed, setCurrentFeed] = useState(null);
   const [feedList, setFeedList] = useState([]);
   const [feedsLoaded, setLoaded] = useState(false);
-
+  const [isInSettings, setInSettings] = useState(false);
   const saveFeeds = async () => {
     await storeData('saved-feeds',feedList)
   }
@@ -41,8 +41,9 @@ export default function App() {
         {
          feedsLoaded === true && 
         <>
-         {currentFeed === null && (<FeedList feedList={feedList} setter={setCurrentFeed} saveFeedFN={saveFeeds}/>) }
-         {currentFeed !== null && (<ArticleList feed={currentFeed} setter={setCurrentFeed}/>)}  
+         {currentFeed === null && isInSettings !== true &&(<FeedList feedList={feedList} setter={setCurrentFeed} saveFeedFN={saveFeeds} optionSetter={setInSettings}/>) }
+         {currentFeed !== null && isInSettings !== true && (<ArticleList feed={currentFeed} setter={setCurrentFeed}/>)}  
+         {isInSettings === true && <SettingsMenu menuStateSetter={setInSettings}></SettingsMenu>}
         </>
         }
 

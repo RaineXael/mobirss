@@ -5,7 +5,7 @@ import { useState } from "react";
 import { storeData, getData } from "../modules/DataManager";
 //Linking.openURL("https://www.sdamned.com/comic/1111");
 //saved-feeds
-export function FeedList({feedList, setter, saveFeedFN}){
+export function FeedList({feedList, setter, saveFeedFN, optionSetter}){
     const [visible, setVisible] = useState(false);
 
     const feedJSX = feedList.map(elem => {
@@ -23,7 +23,7 @@ export function FeedList({feedList, setter, saveFeedFN}){
         <View style={styles.view}> 
            
             <FeedInputDialog saveFeedFN={saveFeedFN} feedList={feedList} visible={visible} setVisible={setVisible}/>
-            <Titlebar></Titlebar>
+            <Titlebar optionSetter={optionSetter}></Titlebar>
             <ScrollView>
             {feedJSX}
             <Button onPress={resetData}>RESET EVERYTHING</Button>
@@ -48,11 +48,11 @@ function FeedCard({feed, setter}){
 }
 
 
-function Titlebar(){
+function Titlebar({optionSetter}){
     return(
       <Appbar.Header>
       <Appbar.Content title="MobiRSS" />
-      <Appbar.Action icon="cog" onPress={() => {}} />
+      <Appbar.Action icon="cog" onPress={() => {optionSetter(true)}} />
     </Appbar.Header>
     );
   }
