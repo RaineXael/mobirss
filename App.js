@@ -1,12 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
-import { PaperProvider} from 'react-native-paper';
+import { useMaterial3Theme } from '@pchmn/expo-material3-theme';
+import { StyleSheet, View , useColorScheme} from 'react-native';
+import { PaperProvider, MD3DarkTheme,MD3LightTheme, Surface} from 'react-native-paper';
 import { FeedList } from './views/FeedList';
 import {useState, useEffect} from 'react'
 import {ArticleList} from './views/FeedView'
 import { getData, storeData } from './modules/DataManager';
 import { SettingsMenu } from './views/SettingsMenu';
-
 
 
 export default function App() {
@@ -33,11 +33,18 @@ export default function App() {
 
    )},[])
 
-  useEffect
+  
+   const colorScheme = useColorScheme();
+   const { theme } = useMaterial3Theme();
+ 
+   const paperTheme =
+     colorScheme === 'dark'
+       ? { ...MD3DarkTheme, colors: theme.dark }
+       : { ...MD3LightTheme, colors: theme.light };
 
   return (
-    <PaperProvider>
-      <View style={styles.container}>
+    <PaperProvider theme={paperTheme}>
+      <Surface style={styles.container}>
         {
          feedsLoaded === true && 
         <>
@@ -48,7 +55,7 @@ export default function App() {
         }
 
         <StatusBar style="auto" />
-      </View>
+      </Surface>
     </PaperProvider>
   
   );
