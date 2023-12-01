@@ -19,7 +19,7 @@ export function FeedList({feedList, setter, saveFeedFN, optionSetter}){
            
             <FeedInputDialog saveFeedFN={saveFeedFN} feedList={feedList} visible={visible} setVisible={setVisible}/>
             <Titlebar optionSetter={optionSetter}></Titlebar>
-            <ScrollView>
+            <ScrollView contentContainerStyle={{flexGrow: 1}}>
             {feedJSX}
             
          
@@ -36,7 +36,7 @@ export function FeedList({feedList, setter, saveFeedFN, optionSetter}){
 function FeedCard({feed, setter}){
    
     return(
-        <Card elevation={4} onPress={() => setter(feed)}>
+        <Card elevation={5} onPress={() => setter(feed)} style={styles.card}>
         <Card.Title title={feed.title} subtitle={feed.link}/>
         <Card.Content>
             <Text>{feed.description}</Text>
@@ -72,8 +72,9 @@ const styles = StyleSheet.create({
       bottom: 0,
     },
     card:{
-        margin:32
+        margin:8
     },
+   
    
   })
   
