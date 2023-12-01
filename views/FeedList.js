@@ -1,5 +1,5 @@
 import { Text, Card, Button,List, FAB, Appbar, Dialog, Portal, TextInput} from "react-native-paper";
-import { View, StyleSheet, ScrollView, Linking} from "react-native";
+import { View, StyleSheet, ScrollView} from "react-native";
 import { FeedInputDialog } from "./FeedAddDialog";
 import { useState } from "react";
 

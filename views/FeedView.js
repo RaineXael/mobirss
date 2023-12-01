@@ -1,6 +1,6 @@
 import {Button,Text, Appbar, List, Portal, Modal, Divider} from 'react-native-paper';
-import {View, ScrollView, Linking } from 'react-native';
-import {useState} from 'react';
+import {View, ScrollView, Linking, RefreshControl } from 'react-native';
+import {useState, useCallback} from 'react';
 import { WebView } from 'react-native-webview';
 import { fetchFeed } from '../modules/FeedFetcher';
 function ArticleItem({item, setter}){
@@ -28,25 +28,29 @@ export function ArticleList({feed, setter}){
     return <ArticleItem item={elem} setter={setCurrentArticle}></ArticleItem>
   })
 
+  const [refreshing, setRefreshing] = useState(false);
+
   async function refresh(){
     console.log(feed.feedLink);
     const newFeed = await fetchFeed(feed.feedLink);
-
-    console.log(newFeed);
+    
+    console.log(newFeed.rss.channel.item);
     //compare the two and append new titles
-    newFeed.item.forEach(newFeed => {
-      if(!feed.items.includes(newFeed)){
+    newFeed.rss.channel.item.forEach(newFeed => {
+      if(!feed.items.guid.includes(newFeed.guid)){
         console.log('New Post!');
       }
     });
+    setRefreshing(false);
   }
   
   return(
     <View>
       <Titlebar title={feed.title} setter={setter}></Titlebar>
-      <ScrollView>
-        <Button onPress={refresh}>Refresh</Button>
-        <Text>{JSON.stringify(Object.keys(feed))}</Text>
+      <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={refresh} />
+      }>
         {currentArticle === null && (itemJSX)}
         {currentArticle !== null && (<ArticleWebView article={currentArticle}
         setter={setCurrentArticle}></ArticleWebView>)}
