@@ -12,10 +12,7 @@ export async function fetchFeed(link){
     const xmlResp = await fetch(link);
     const xmlString = await xmlResp.text();
     //validate rss
-    const xmlObject = parser.parse(xmlString);
-    //manually append link url for refresh
-    xmlObject.feedLink = link
-    return xmlObject;
+    return parser.parse(xmlString);
   }
   catch(e){
     console.error(e)
