@@ -29,7 +29,7 @@ export default function App() {
         setFeedList(JSON.parse(data))
       }
       getData('darkmode').then(storedDark => {
-        setDark(storedDark === "true" ? true:false);
+        setDark(storedDark === "true");
         setLoaded(true);
       })
       
