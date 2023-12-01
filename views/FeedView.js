@@ -1,4 +1,4 @@
-import {Button,Text, Appbar, List, Portal, Modal, Divider} from 'react-native-paper';
+import {Button,Text, Appbar, List, Portal, Modal, Menu, Divider} from 'react-native-paper';
 import {View, ScrollView, Linking, RefreshControl } from 'react-native';
 import {useState, useCallback} from 'react';
 import { WebView } from 'react-native-webview';
@@ -35,11 +35,12 @@ export function ArticleList({feed, setter}){
     const newFeed = await fetchFeed(feed.feedLink);
     
     console.log(newFeed.rss.channel.item);
+    const guids = feed.item.map(elem => elem.guid);
+    console.log(guids)
     //compare the two and append new titles
     newFeed.rss.channel.item.forEach(newFeed => {
-      if(!feed.items.guid.includes(newFeed.guid)){
-        console.log('New Post!');
-      }
+      console.log(newFeed.guid)
+      
     });
     setRefreshing(false);
   }

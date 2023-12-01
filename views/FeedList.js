@@ -37,7 +37,10 @@ function FeedCard({feed, setter}){
    
     return(
         <Card onPress={() => setter(feed)}>
-        <Card.Title title={feed.title} subtitle={feed.description}/>
+        <Card.Title title={feed.title} subtitle={feed.link}/>
+        <Card.Content>
+            <Text>{feed.description}</Text>
+        </Card.Content>
         </Card>
     );
 }
