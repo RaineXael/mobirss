@@ -36,7 +36,7 @@ export function FeedList({feedList, setter, saveFeedFN, optionSetter}){
 function FeedCard({feed, setter}){
    
     return(
-        <Card onPress={() => setter(feed)}>
+        <Card elevation={2} onPress={() => setter(feed)}>
         <Card.Title title={feed.title} subtitle={feed.link}/>
         <Card.Content>
             <Text>{feed.description}</Text>
