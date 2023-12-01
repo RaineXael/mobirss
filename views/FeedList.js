@@ -22,7 +22,7 @@ export function FeedList({feedList, setter, saveFeedFN, optionSetter}){
             <ScrollView>
             {feedJSX}
             
-            <Text style={styles.credit}>App by RaineXael</Text>
+         
             </ScrollView>
             
             <FAB icon="plus" size='large' style={styles.fab} onPress={()=>setVisible(true)}>Add New Feed</FAB>
