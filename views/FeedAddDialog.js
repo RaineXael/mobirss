@@ -19,7 +19,7 @@ export function FeedInputDialog({ feedList, visible, setVisible, saveFeedFN}) {
     setLoading(true);
     const foundFeed = await fetchFeed(text);
     if(foundFeed !== null){
-      console.log(foundFeed.rss.channel);
+      console.log(foundFeed.feedLink);
       //add feed to list & save to cache
       feedList.push(foundFeed.rss.channel);
       await saveFeedFN();

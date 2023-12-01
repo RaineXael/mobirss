@@ -2,7 +2,7 @@ import { Text, Card, Button,List, FAB, Appbar, Dialog, Portal, TextInput} from "
 import { View, StyleSheet, ScrollView, Linking} from "react-native";
 import { FeedInputDialog } from "./FeedAddDialog";
 import { useState } from "react";
-import { storeData, getData } from "../modules/DataManager";
+
 //Linking.openURL("https://www.sdamned.com/comic/1111");
 //saved-feeds
 export function FeedList({feedList, setter, saveFeedFN, optionSetter}){
@@ -13,11 +13,6 @@ export function FeedList({feedList, setter, saveFeedFN, optionSetter}){
     });
     console.log(feedJSX)
 
-    //temp
-    const resetData = () => {
-        storeData('saved-feeds',[]);
-    };
-
 
     return(
         <View style={styles.view}> 
@@ -26,7 +21,7 @@ export function FeedList({feedList, setter, saveFeedFN, optionSetter}){
             <Titlebar optionSetter={optionSetter}></Titlebar>
             <ScrollView>
             {feedJSX}
-            <Button onPress={resetData}>RESET EVERYTHING</Button>
+            
             <Text style={styles.credit}>App by RaineXael</Text>
             </ScrollView>
             

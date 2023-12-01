@@ -2,6 +2,7 @@ import {Button,Text, Appbar, List, Portal, Modal, Divider} from 'react-native-pa
 import {View, ScrollView, Linking } from 'react-native';
 import {useState} from 'react';
 import { WebView } from 'react-native-webview';
+import { fetchFeed } from '../modules/FeedFetcher';
 function ArticleItem({item, setter}){
   return(<>
   <List.Item key={item.title} title={item.title}
@@ -26,11 +27,26 @@ export function ArticleList({feed, setter}){
     //return <Text>{JSON.stringify(elem)}</Text>
     return <ArticleItem item={elem} setter={setCurrentArticle}></ArticleItem>
   })
+
+  async function refresh(){
+    console.log(feed.feedLink);
+    const newFeed = await fetchFeed(feed.feedLink);
+
+    console.log(newFeed);
+    //compare the two and append new titles
+    newFeed.item.forEach(newFeed => {
+      if(!feed.items.includes(newFeed)){
+        console.log('New Post!');
+      }
+    });
+  }
   
   return(
     <View>
       <Titlebar title={feed.title} setter={setter}></Titlebar>
       <ScrollView>
+        <Button onPress={refresh}>Refresh</Button>
+        <Text>{JSON.stringify(Object.keys(feed))}</Text>
         {currentArticle === null && (itemJSX)}
         {currentArticle !== null && (<ArticleWebView article={currentArticle}
         setter={setCurrentArticle}></ArticleWebView>)}

@@ -1,8 +1,17 @@
-import {Appbar} from 'react-native-paper';
+import {Appbar, Button} from 'react-native-paper';
+import { storeData, getData } from "../modules/DataManager";
+
 
 export function SettingsMenu({menuStateSetter}){
+
+const resetData = () => {storeData('saved-feeds',[])}
+
 return (
+  <>
   <Titlebar title="Settings" setter={menuStateSetter}></Titlebar>
+  <Button onPress={resetData}>RESET EVERYTHING</Button>
+  </>
+  
 );
 }
 
