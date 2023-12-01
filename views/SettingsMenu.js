@@ -3,7 +3,7 @@ import { storeData} from "../modules/DataManager";
 import { ScrollView, StyleSheet } from 'react-native';
 import {useState} from 'react';
 
-export function SettingsMenu({menuStateSetter}){
+export function SettingsMenu({menuStateSetter, isDark, setDark}){
 
 
 
@@ -12,7 +12,7 @@ return (
   <Titlebar title="Settings" setter={menuStateSetter}></Titlebar>
   <ScrollView>
  
-  <DarkModeSetter/>
+  <DarkModeSetter isDark={isDark} setDark={setDark}/>
   <ResetDataButton></ResetDataButton>
  
   </ScrollView>
@@ -55,10 +55,15 @@ function ResetDataButton(){
   );
 }
 
-function DarkModeSetter(){
-  const [value, setValue] = useState('');
+function DarkModeSetter({isDark, setDark}){
+
+  const toggleDark = ()=>{
+    setDark(!isDark);
+    storeData('darkmode', !isDark);
+  }
+
   return(
-    <Checkbox.Item label="Dark Mode" status={value ? 'checked' : 'unchecked'} onPress={() => setValue(!value)}/>
+    <Checkbox.Item label="Dark Mode" status={isDark ? 'checked' : 'unchecked'} onPress={toggleDark}/>
   );
 }
 

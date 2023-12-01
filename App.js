@@ -14,6 +14,9 @@ export default function App() {
   const [feedList, setFeedList] = useState([]);
   const [feedsLoaded, setLoaded] = useState(false);
   const [isInSettings, setInSettings] = useState(false);
+
+  const [isDark, setDark] = useState(false);
+
   const saveFeeds = async () => {
     await storeData('saved-feeds',feedList)
   }
@@ -21,11 +24,15 @@ export default function App() {
   useEffect(() => {
     //load feedlist from disk on boot
     getData('saved-feeds').then(data => {
-      console.log(feedList);
+     
       if(data !== undefined){
         setFeedList(JSON.parse(data))
       }
-      setLoaded(true);
+      getData('darkmode').then(storedDark => {
+        setDark(storedDark === "true" ? true:false);
+        setLoaded(true);
+      })
+      
    }).catch(err => {
     console.error(err);
     setLoaded(true);
@@ -38,7 +45,7 @@ export default function App() {
    const { theme } = useMaterial3Theme();
  
    const paperTheme =
-     colorScheme === 'dark'
+      isDark
        ? { ...MD3DarkTheme, colors: theme.dark }
        : { ...MD3LightTheme, colors: theme.light };
 
@@ -50,7 +57,7 @@ export default function App() {
         <>
          {currentFeed === null && isInSettings !== true &&(<FeedList feedList={feedList} setter={setCurrentFeed} saveFeedFN={saveFeeds} optionSetter={setInSettings}/>) }
          {currentFeed !== null && isInSettings !== true && (<ArticleList feed={currentFeed} setter={setCurrentFeed}/>)}  
-         {isInSettings === true && <SettingsMenu menuStateSetter={setInSettings}></SettingsMenu>}
+         {isInSettings === true && <SettingsMenu menuStateSetter={setInSettings} isDark={isDark} setDark={setDark}></SettingsMenu>}
         </>
         }
 
