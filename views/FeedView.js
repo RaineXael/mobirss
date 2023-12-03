@@ -16,6 +16,11 @@ function Titlebar({title, setter}){
     <Appbar.Header>
     <Appbar.BackAction onPress={() => {setter(null)}} />
     <Appbar.Content title={title} />
+    <Appbar.Action icon="web" onPress={() => {
+      //should open the main page when in the feed list,
+      //opens this article on a certain article view
+    }} />
+    
   </Appbar.Header>
   );
 }

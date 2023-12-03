@@ -1,4 +1,4 @@
-import {Appbar, Button, Checkbox, Portal, Dialog, Text} from 'react-native-paper';
+import {Appbar, Button, Checkbox, Portal, Dialog, Text, Divider} from 'react-native-paper';
 import { storeData} from "../modules/DataManager";
 import { ScrollView, StyleSheet } from 'react-native';
 import {useState} from 'react';
@@ -13,8 +13,10 @@ return (
   <ScrollView>
  
   <DarkModeSetter isDark={isDark} setDark={setDark}/>
+  
+  <ShowNavOnFeedShower/>
+  <Divider/>
   <ResetDataButton></ResetDataButton>
- 
   </ScrollView>
   <Text style={styles.credit}>App by RaineXael</Text>
   </>
@@ -64,6 +66,18 @@ function DarkModeSetter({isDark, setDark}){
 
   return(
     <Checkbox.Item label="Dark Mode" status={isDark ? 'checked' : 'unchecked'} onPress={toggleDark}/>
+  );
+}
+
+function ShowNavOnFeedShower(){
+  const [isDark, setDark] = useState(false);
+
+  const toggleDark = ()=>{
+    setDark(!isDark);
+    storeData('darkmode', !isDark);
+  }
+  return(
+    <Checkbox.Item label="Show navigation in feed" status={isDark ? 'indeterminate' : 'unchecked'} onPress={toggleDark}/>
   );
 }
 

@@ -1,6 +1,7 @@
 {
   "expo": {
-    "name": "mobirss",
+    "name": "MobiRSS",
+    "description": "A simple RSS feed reader for mobile.",
     "slug": "mobirss",
     "version": "1.0.0",
     "orientation": "portrait",
