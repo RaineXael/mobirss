@@ -45,7 +45,8 @@ function FeedCard({ feed, setter }) {
             anchor={
 
                 <Card elevation={5} onPress={() => setter(feed)} style={styles.card} onLongPress={() => setVisible(true)}>
-                    <Card.Title title={feed.title} right={() => <Badge>24</Badge>} subtitle={feed.link} />
+                    <Card.Title title={feed.title} subtitle={feed.link} 
+                    right={() => <Badge>24</Badge>}/>
                     <Card.Content>
                         <Text>{feed.description}</Text>
                     </Card.Content>
