@@ -7,7 +7,8 @@ import {useState, useEffect} from 'react'
 import {ArticleList} from './views/FeedView'
 import { getData, storeData } from './modules/DataManager';
 import { SettingsMenu } from './views/SettingsMenu';
-
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 export default function App() {
   const [currentFeed, setCurrentFeed] = useState(null);
@@ -20,6 +21,8 @@ export default function App() {
   const saveFeeds = async () => {
     await storeData('saved-feeds',feedList)
   }
+
+  const Stack = createNativeStackNavigator();
 
   useEffect(() => {
     //load feedlist from disk on boot
@@ -52,16 +55,16 @@ export default function App() {
   return (
     <PaperProvider theme={paperTheme}>
       <Surface style={styles.container}>
-        {
-         feedsLoaded === true && 
-        <>
-         {currentFeed === null && isInSettings !== true &&(<FeedList feedList={feedList} setter={setCurrentFeed} saveFeedFN={saveFeeds} optionSetter={setInSettings}/>) }
-         {currentFeed !== null && isInSettings !== true && (<ArticleList feed={currentFeed} setter={setCurrentFeed}/>)}  
-         {isInSettings === true && <SettingsMenu menuStateSetter={setInSettings} isDark={isDark} setDark={setDark}></SettingsMenu>}
-        </>
-        }
-
-        <StatusBar style="auto" />
+      <NavigationContainer>
+        <Stack.Navigator initialRoute="FeedList">
+          <Stack.Screen name="FeedList" component={<FeedList feedList={feedList} setter={setCurrentFeed} saveFeedFN={saveFeeds} optionSetter={setInSettings}/>}/>
+          <Stack.Screen name="ArticleList" component={<ArticleList feed={currentFeed} setter={setCurrentFeed}/>}/>
+          <Stack.Screen name="Settings" component={<SettingsMenu menuStateSetter={setInSettings} isDark={isDark} setDark={setDark}></SettingsMenu>}/> 
+        </Stack.Navigator> 
+        
+      
+      </NavigationContainer>
+      <StatusBar style="auto" />
       </Surface>
     </PaperProvider>
   
